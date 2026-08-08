@@ -4,8 +4,8 @@ export const site = {
   title: "Software Developer",
   location: "Entebbe, Uganda",
   email: "muwerezamarvin2023@gmail.com",
-  phone: "+256 781 304 004",
-  whatsapp: "https://wa.me/256781304004",
+  phone: "+256 781 384 004",
+  whatsapp: "https://wa.me/256781384004",
   github: "https://github.com/Marvin-Paul",
   githubHandle: "Marvin-Paul",
   nav: [

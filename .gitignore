@@ -42,3 +42,5 @@ next-env.d.ts
 
 # stray source image
 marvinpro-remove-bg-io (1).png
+.vercel
+.env*
