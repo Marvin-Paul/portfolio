@@ -42,7 +42,7 @@ export const projects: Project[] = [
     slug: "hysys-global-solutions",
     title: "HYSYS Global Solutions",
     description:
-      "Product website for HYSYS Global Solutions delivered as a TypeScript monorepo. Shipped with full PRD, BRD, design, site-map, SEO and analytics documentation to keep engineering and product aligned.",
+      "Company website for HYSYS Global Solutions — built during my internship there. Delivered as a TypeScript monorepo with full PRD, BRD, design, site-map, SEO and analytics documentation.",
     category: "SaaS",
     tags: ["Next.js", "TypeScript", "Supabase", "Design Systems"],
     year: "2026",

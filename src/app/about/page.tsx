@@ -11,12 +11,25 @@ export const metadata: Metadata = {
   description: `About ${site.fullName} — a software developer in ${site.location}.`,
 };
 
-const experience = [
+const experience: {
+  role: string;
+  org: string;
+  period: string;
+  body: string;
+  link?: { label: string; href: string };
+}[] = [
   {
-    role: "Founder & Full-Stack Developer",
+    role: "Full-Stack Developer Intern",
     org: "HYSYS Global Solutions",
     period: "2026",
-    body: "Built the company product website as a TypeScript monorepo with complete PRD, design, SEO and analytics documentation.",
+    body: "Completed an internship at HYSYS Global Solutions where I developed their company website — a TypeScript monorepo with complete PRD, design, SEO and analytics documentation.",
+  },
+  {
+    role: "Application & Website Tester",
+    org: "Testbirds",
+    period: "2026",
+    body: "Testing applications and websites for functionality, usability and bugs as part of Testbirds' crowdtesting network.",
+    link: { label: "nest.testbirds.com", href: "https://nest.testbirds.com/dashboard" },
   },
   {
     role: "Product Developer",
@@ -29,6 +42,30 @@ const experience = [
     org: "MaizeGuard",
     period: "2026",
     body: "Built an on-device AI diagnostic for maize leaf disease using Flutter and Gemini vision.",
+  },
+];
+
+const education: {
+  level: string;
+  org: string;
+  period?: string;
+  href?: string;
+}[] = [
+  {
+    level: "University",
+    org: "Kampala International University",
+    period: "Current",
+    href: "https://kiu.ac.ug/",
+  },
+  {
+    level: "Advanced Level (A-Level)",
+    org: "Kyaddondo Secondary School Matuga",
+    href: "https://www.kyaddondossmatugga.ac.ug/",
+  },
+  {
+    level: "Ordinary Level (O-Level)",
+    org: "Kyaddondo Secondary School Matuga",
+    href: "https://www.kyaddondossmatugga.ac.ug/",
   },
 ];
 
@@ -117,6 +154,24 @@ export default function AboutPage() {
                 </li>
                 <li>
                   <a
+                    href={site.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-action-blue underline underline-offset-4 hover:text-focus-blue"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    href="/resume"
+                    className="text-action-blue underline underline-offset-4 hover:text-focus-blue"
+                  >
+                    Resume (CV)
+                  </Link>
+                </li>
+                <li>
+                  <a
                     href={`mailto:${site.email}`}
                     className="text-action-blue underline underline-offset-4 hover:text-focus-blue"
                   >
@@ -163,10 +218,54 @@ export default function AboutPage() {
                 </div>
                 <p className="max-w-xl text-sm leading-relaxed text-body-muted md:col-span-6">
                   {item.body}
+                  {item.link && (
+                    <a
+                      href={item.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 block text-action-blue underline underline-offset-4 hover:text-focus-blue"
+                    >
+                      {item.link.label}
+                    </a>
+                  )}
                 </p>
                 <p className="mono-label text-body-muted md:col-span-1 md:text-right">
                   {item.period}
                 </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-site py-24">
+        <Reveal>
+          <SectionLabel>Education</SectionLabel>
+        </Reveal>
+        <div className="border-t border-hairline">
+          {education.map((item, i) => (
+            <Reveal key={item.level} variant="blur" delay={i * 100}>
+              <div className="grid gap-2 border-b border-hairline py-8 md:grid-cols-12">
+                <div className="md:col-span-5">
+                  <h3 className="text-xl text-ink">{item.level}</h3>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-block text-sm text-action-blue underline underline-offset-4 hover:text-focus-blue"
+                    >
+                      {item.org}
+                    </a>
+                  ) : (
+                    <p className="mt-1 text-sm text-body-muted">{item.org}</p>
+                  )}
+                </div>
+                {item.period && (
+                  <p className="mono-label text-body-muted md:col-span-7 md:text-right">
+                    {item.period}
+                  </p>
+                )}
               </div>
             </Reveal>
           ))}

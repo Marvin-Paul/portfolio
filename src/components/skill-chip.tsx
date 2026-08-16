@@ -18,9 +18,15 @@ import {
   SiGoogle,
   SiHtml5,
   SiCss,
+  SiFigma,
+  SiWordpress,
+  SiGit,
+  SiVercel,
 } from "react-icons/si";
+import { DiIllustrator } from "react-icons/di";
 import { VscVscode, VscTerminal } from "react-icons/vsc";
 import { RiOpenaiFill } from "react-icons/ri";
+import { FiZap } from "react-icons/fi";
 
 export type SkillInfo = {
   name: string;
@@ -50,6 +56,12 @@ const skills: SkillInfo[] = [
   { name: "ChatGPT", icon: RiOpenaiFill, color: "#10A37F" },
   { name: "DeepSeek", icon: SiDeepseek, color: "#4D6BFE" },
   { name: "Claude AI", icon: SiClaude, color: "#D97757" },
+  { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+  { name: "Adobe Illustrator", icon: DiIllustrator, color: "#FF9A00" },
+  { name: "WordPress", icon: SiWordpress, color: "#21759B" },
+  { name: "Bolt", icon: FiZap, color: "#E8B500" },
+  { name: "Git", icon: SiGit, color: "#F05032" },
+  { name: "Vercel", icon: SiVercel, color: "#FFFFFF" },
 ];
 
 const byName = (name: string) => skills.find((s) => s.name === name)!;
@@ -76,6 +88,11 @@ export const skillGroups: { label: string; skills: SkillInfo[] }[] = [
   {
     label: "AI Tools",
     skills: ["ChatGPT", "DeepSeek", "Claude AI", "Gemini AI"].map(byName),
+  },
+  { label: "Design", skills: ["Figma", "Adobe Illustrator"].map(byName) },
+  {
+    label: "CMS & Build Tools",
+    skills: ["WordPress", "Bolt", "Vercel", "Git"].map(byName),
   },
 ];
 

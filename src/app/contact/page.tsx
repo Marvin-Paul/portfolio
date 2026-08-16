@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { FiMail, FiGithub, FiMapPin, FiArrowUpRight } from "react-icons/fi";
+import Link from "next/link";
+import { FiMail, FiGithub, FiMapPin, FiArrowUpRight, FiLinkedin, FiFileText } from "react-icons/fi";
+import type { IconType } from "react-icons";
 import { FaWhatsapp } from "react-icons/fa";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
@@ -11,7 +13,15 @@ export const metadata: Metadata = {
   description: "Get in touch with Muwereza Marvin Paul about a project.",
 };
 
-const channels = [
+const channels: {
+  label: string;
+  value: string;
+  href: string;
+  icon: IconType;
+  iconClass: string;
+  rowClass: string;
+  external?: boolean;
+}[] = [
   {
     label: "Email",
     value: site.email,
@@ -35,6 +45,23 @@ const channels = [
     icon: FiGithub,
     iconClass: "text-neutral-200",
     rowClass: "hover:border-neutral-500/40 hover:bg-neutral-100/5",
+  },
+  {
+    label: "LinkedIn",
+    value: "marvin-muwereza",
+    href: site.linkedin,
+    icon: FiLinkedin,
+    iconClass: "text-[#0A66C2]",
+    rowClass: "hover:border-[#0A66C2]/40 hover:bg-[#0A66C2]/5",
+  },
+  {
+    label: "Resume",
+    value: "Download CV (PDF)",
+    href: "/resume",
+    icon: FiFileText,
+    iconClass: "text-primary",
+    rowClass: "hover:border-primary/40 hover:bg-primary/5",
+    external: false,
   },
 ];
 
@@ -97,14 +124,8 @@ export default function ContactPage() {
               <div className="mt-8 space-y-3">
                 {channels.map((channel) => {
                   const Icon = channel.icon;
-                  return (
-                    <a
-                      key={channel.label}
-                      href={channel.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group flex items-center gap-4 rounded-xl border border-neutral-800 bg-surface p-4 transition ${channel.rowClass}`}
-                    >
+                  const row = (
+                    <>
                       <span
                         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900 transition group-hover:scale-105 ${channel.iconClass}`}
                       >
@@ -122,6 +143,22 @@ export default function ContactPage() {
                         className="ml-auto h-4 w-4 shrink-0 text-neutral-600 transition group-hover:text-white"
                         aria-hidden="true"
                       />
+                    </>
+                  );
+                  const cls = `group flex items-center gap-4 rounded-xl border border-neutral-800 bg-surface p-4 transition ${channel.rowClass}`;
+                  return channel.external === false ? (
+                    <Link key={channel.label} href={channel.href} className={cls}>
+                      {row}
+                    </Link>
+                  ) : (
+                    <a
+                      key={channel.label}
+                      href={channel.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cls}
+                    >
+                      {row}
                     </a>
                   );
                 })}

@@ -8,9 +8,11 @@ export const site = {
   whatsapp: "https://wa.me/256781384004",
   github: "https://github.com/Marvin-Paul",
   githubHandle: "Marvin-Paul",
+  linkedin: "https://www.linkedin.com/in/marvin-muwereza-0332b4382",
   nav: [
     { label: "Projects", href: "/projects" },
     { label: "About", href: "/about" },
+    { label: "Resume", href: "/resume" },
     { label: "Contact", href: "/contact" },
   ],
   skills: [
@@ -26,5 +28,11 @@ export const site = {
     "Python",
     "Gemini AI",
     "Tailwind CSS",
+    "Figma",
+    "Adobe Illustrator",
+    "WordPress",
+    "Bolt",
+    "Git",
+    "Vercel",
   ],
 };

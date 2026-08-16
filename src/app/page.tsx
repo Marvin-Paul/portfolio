@@ -36,11 +36,22 @@ const process = [
   },
 ];
 
-const experience = [
+const experience: {
+  role: string;
+  org: string;
+  period: string;
+  link?: { label: string; href: string };
+}[] = [
   {
-    role: "Founder & Full-Stack Developer",
+    role: "Full-Stack Developer Intern",
     org: "HYSYS Global Solutions",
     period: "2026",
+  },
+  {
+    role: "Application & Website Tester",
+    org: "Testbirds",
+    period: "2026",
+    link: { label: "nest.testbirds.com", href: "https://nest.testbirds.com/dashboard" },
   },
   {
     role: "Product Developer",
@@ -256,6 +267,16 @@ export default function Home() {
                   <div>
                     <p className="font-semibold text-white">{item.role}</p>
                     <p className="text-neutral-500">{item.org}</p>
+                    {item.link && (
+                      <a
+                        href={item.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        {item.link.label}
+                      </a>
+                    )}
                   </div>
                   <span className="font-medium text-primary">{item.period}</span>
                 </div>

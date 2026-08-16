@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FiMail, FiGithub, FiMapPin, FiArrowRight } from "react-icons/fi";
+import { FiMail, FiGithub, FiMapPin, FiArrowRight, FiLinkedin, FiFileText } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { site } from "@/lib/site";
 
@@ -48,6 +48,26 @@ export function Footer() {
               <FiGithub className="h-3.5 w-3.5" aria-hidden="true" />
             </span>
             <span className="text-neutral-200">github.com/{site.githubHandle}</span>
+          </a>
+          <Link
+            href="/resume"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+          >
+            <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
+              <FiFileText className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            <span className="text-neutral-200">Resume / CV (PDF)</span>
+          </Link>
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+          >
+            <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
+              <FiLinkedin className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            <span className="text-neutral-200">linkedin.com/in/marvin-muwereza</span>
           </a>
           <a
             href={site.whatsapp}
