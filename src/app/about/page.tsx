@@ -41,7 +41,7 @@ const experience: {
     role: "AI Applications Developer",
     org: "MaizeGuard",
     period: "2026",
-    body: "Built an on-device AI diagnostic for maize leaf disease using Flutter and Gemini vision.",
+    body: "Built a mobile AI diagnostic for maize leaf disease using Flutter and Gemini vision.",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function AboutPage() {
               </Reveal>
               <Reveal delay={340}>
                 <p className="mt-6 text-lg leading-relaxed text-body-muted">
-                  From food ordering platforms to on-device AI diagnostics, I
+                  From food ordering platforms to mobile AI diagnostics, I
                   care about the details most people never see: typed data,
                   honest interfaces and systems that hold up under real use.
                 </p>
@@ -105,7 +105,7 @@ export default function AboutPage() {
           <Reveal variant="slide-right" delay={200} className="lg:col-span-1">
             <div className="glass-card overflow-hidden rounded-lg">
               <Image
-                src="/images/profile.png"
+                src="/images/portrait-with-tie.png"
                 alt={`${site.fullName}, ${site.title}`}
                 width={432}
                 height={432}

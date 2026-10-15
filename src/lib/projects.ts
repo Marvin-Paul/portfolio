@@ -11,92 +11,100 @@ export type Project = {
   links: { label: string; href: string }[];
 };
 
+// Curated from public repositories at https://github.com/Marvin-Paul on 2026-10-15.
+// Keep descriptions grounded in source files; omit empty and documentation-only repos.
 export const projects: Project[] = [
+  {
+    slug: "rakentaa-real-estate",
+    title: "Rakentaa Real Estate",
+    description:
+      "Responsive corporate website with a React frontend and Node.js content management backend. The CMS supports authenticated editing, saved drafts, previews and publishing; appointment forms prepare a WhatsApp enquiry for visitors to send.",
+    category: "Real Estate / CMS",
+    tags: ["React", "JavaScript", "Vite", "Tailwind CSS", "Node.js"],
+    year: "2026",
+    featured: true,
+    repo: "rakentaa-real-estate",
+    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/rakentaa-real-estate" }],
+  },
+  {
+    slug: "rolkat-financial-services",
+    title: "Rolkat Financial Services",
+    description:
+      "Financial services and property website with a custom WordPress theme, a Node.js preview server and an admin CMS. Includes editable services, property listings, team profiles and contact enquiries.",
+    category: "Business / CMS",
+    tags: ["WordPress", "PHP", "JavaScript", "Node.js", "CSS"],
+    year: "2026",
+    featured: true,
+    repo: "rolkat-website",
+    image: "/images/rolkat.png",
+    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/rolkat-website" }],
+  },
   {
     slug: "wabz-foods",
     title: "Wabz Foods",
     description:
       "Full-stack food ordering and delivery platform with a merchant admin panel, Supabase-backed auth and data, and a Next.js client. Built to move an entire ordering flow from menu browsing to checkout.",
     category: "Food & Beverage",
-    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+    tags: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "SQL", "PL/pgSQL"],
     year: "2026",
     featured: true,
     repo: "wabzfoods",
     image: "/images/wabz-foods.png",
-    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/wabzfoods" }],
-  },
-  {
-    slug: "maizeguard",
-    title: "MaizeGuard",
-    description:
-      "AI-powered maize disease diagnostic built with Flutter. On-device Gemini 1.5 Flash vision identifies leaf diseases instantly, a local SQLite engine stores every scan, and a glassmorphic UI keeps the experience polished.",
-    category: "AI / AgriTech",
-    tags: ["Flutter", "Dart", "Gemini AI", "SQLite"],
-    year: "2026",
-    featured: true,
-    repo: "maize2026",
-    image: "/images/maizeguard.jpg",
-    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/maize2026" }],
+    links: [
+      { label: "Live site", href: "https://wabzfoods.vercel.app" },
+      { label: "GitHub", href: "https://github.com/Marvin-Paul/wabzfoods" },
+    ],
   },
   {
     slug: "hysys-global-solutions",
     title: "HYSYS Global Solutions",
     description:
       "Company website for HYSYS Global Solutions — built during my internship there. Delivered as a TypeScript monorepo with full PRD, BRD, design, site-map, SEO and analytics documentation.",
-    category: "SaaS",
-    tags: ["Next.js", "TypeScript", "Supabase", "Design Systems"],
+    category: "Company Website",
+    tags: ["React", "TypeScript", "Vite", "Supabase", "Tailwind CSS", "SQL", "PL/pgSQL"],
     year: "2026",
+    featured: true,
     repo: "hysys",
     image: "/images/hysys.png",
     links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/hysys" }],
   },
   {
-    slug: "connect-plus",
-    title: "Connect+",
-    description:
-      "Professional networking platform scaffold on the Next.js App Router with Prisma and PostgreSQL. Includes GitLab SSO, CI/CD pipelines, profile sync and an API health layer.",
-    category: "Networking",
-    tags: ["Next.js", "Prisma", "PostgreSQL", "Supabase"],
-    year: "2026",
-    repo: "ConnectPlus",
-    image: "/images/connect+.jpg",
-    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/ConnectPlus" }],
-  },
-  {
-    slug: "connect-plus-jobs",
-    title: "Connect Plus Jobs",
-    description:
-      "Job advertising platform that connects employers with job seekers through structured listings, applications and a focused advertising flow.",
-    category: "Jobs",
-    tags: ["Web", "Platform", "UI"],
-    year: "2026",
-    repo: "connect-Plus",
-    image: "/images/connect+jobs.jpg",
-    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/connect-Plus" }],
-  },
-  {
     slug: "campus-mindspace",
     title: "Campus Mindspace",
     description:
-      "Prototype student community platform for campus mind space — a place to share ideas, projects and conversations across campus.",
+      "Student community project with a React application, Supabase integration and Tailwind CSS styling. The repository also preserves the original HTML/CSS prototype.",
     category: "EdTech",
-    tags: ["HTML", "CSS", "Prototype"],
-    year: "2025",
+    tags: ["React", "JavaScript", "Vite", "Supabase", "Tailwind CSS"],
+    year: "2026",
     repo: "campus-Mindspace",
     image: "/images/campus-mind.jpg",
     links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/campus-Mindspace" }],
   },
   {
-    slug: "javascript-emotions-store",
-    title: "JavaScript Emotions Store",
+    slug: "connect-plus",
+    title: "Connect+",
     description:
-      "A complete vanilla JavaScript e-commerce front end — product grid, shopping cart, checkout, orders and delivery tracking — built end-to-end as a learning project with a small backend.",
-    category: "E-Commerce",
-    tags: ["JavaScript", "HTML", "CSS", "DOM"],
-    year: "2025",
-    repo: "javascript-emotions-project",
-    image: "/images/emotions.jpg",
-    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/javascript-emotions-project" }],
+      "Professional networking platform scaffold with profiles, a jobs section, messaging and API routes. Built with Next.js, Prisma and PostgreSQL, with Supabase integration, TanStack Query and automated Vitest and Playwright checks.",
+    category: "Networking",
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Supabase", "TanStack Query"],
+    year: "2026",
+    repo: "ConnectPlus",
+    image: "/images/connect+.jpg",
+    links: [
+      { label: "Live site", href: "https://connect-plus-bay.vercel.app" },
+      { label: "GitHub", href: "https://github.com/Marvin-Paul/ConnectPlus" },
+    ],
+  },
+  {
+    slug: "csharp-variables",
+    title: "C# Fundamentals",
+    description:
+      "C# console exercises targeting .NET 10, covering variables, console input, conditionals, loops, arrays and methods. A learning repository that includes a name-guessing game example and menu-selection practice.",
+    category: "Education",
+    tags: ["C#", ".NET"],
+    year: "2026",
+    repo: "Variables",
+    links: [{ label: "GitHub", href: "https://github.com/Marvin-Paul/Variables" }],
   },
   {
     slug: "mavin-javascript-course",
@@ -120,7 +128,7 @@ export const capabilities = [
   },
   {
     title: "Mobile & AI",
-    body: "Flutter applications wired to on-device and cloud AI — from Gemini vision diagnostics to intelligent assistants.",
+    body: "Flutter applications connected to AI services, including maize disease diagnostics with Gemini vision.",
     tags: ["Flutter", "Dart", "Gemini AI", "SQLite"],
   },
   {

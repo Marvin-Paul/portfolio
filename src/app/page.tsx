@@ -6,7 +6,7 @@ import { SkillChip, skillGroups } from "@/components/skill-chip";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
 
-const selected = projects.slice(0, 3);
+const selected = projects.filter((project) => project.featured).slice(0, 3);
 
 const process = [
   {
@@ -125,7 +125,7 @@ export default function Home() {
             <div className="flex justify-center md:col-span-1 lg:col-span-5">
               <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900">
                 <Image
-                  src="/images/profile.png"
+                  src="/images/portrait-with-tie.png"
                   alt={`${site.fullName}, ${site.title}`}
                   width={432}
                   height={432}
@@ -145,12 +145,12 @@ export default function Home() {
               <div className="space-y-6 md:flex md:items-baseline md:justify-between md:gap-8 md:space-y-0 lg:block lg:space-y-6">
                 <div className="flex items-baseline gap-4">
                   <span className="font-display text-4xl font-bold text-primary">
-                    {projects.length}+
+                    {projects.length}
                   </span>
                   <span className="text-xs uppercase tracking-wider text-neutral-400">
                     Projects
                     <br />
-                    Completed
+                    On GitHub
                   </span>
                 </div>
                 <div className="flex items-baseline gap-4">
@@ -165,12 +165,12 @@ export default function Home() {
                 </div>
                 <div className="flex items-baseline gap-4">
                   <span className="font-display text-4xl font-bold text-primary">
-                    3+
+                    {projects.filter((project) => project.featured).length}
                   </span>
                   <span className="text-xs uppercase tracking-wider text-neutral-400">
-                    Products
+                    Featured
                     <br />
-                    Shipped
+                    Projects
                   </span>
                 </div>
               </div>

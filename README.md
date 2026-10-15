@@ -1,4 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Muwereza Marvin Paul — Portfolio
+
+A Next.js portfolio with projects, skills, experience, contact details and a printable resume.
+
+## Updating portfolio content
+
+- `src/lib/projects.ts` contains the curated project showcase and capabilities.
+- `src/lib/site.ts` contains profile details, navigation and the skills shared with the resume.
+- `src/components/skill-chip.tsx` contains skill icons and homepage skill groups.
+
+Repository-backed skills include PHP from Rolkat's WordPress theme; SQL and PL/pgSQL from HYSYS and Wabz Foods database scripts; Bash and Windows Batch from Campus Mindspace's deployment scripts; and PowerShell and Docker from Wabz Foods' workflow and container files. Keep new skills in both the shared `site.skills` list and the appropriate homepage skill group.
+
+Project content was reviewed against public repositories at [Marvin-Paul on GitHub](https://github.com/Marvin-Paul?tab=repositories) on 15 October 2026. Rakentaa Real Estate, Rolkat, Wabz Foods and HYSYS are featured; Connect+, Campus Mindspace, C# Fundamentals (`Variables`) and the JavaScript course complete the eight-project showcase. Wabz Foods and Connect+ have verified live links. The Rolkat preview comes from its repository's `designs/stitch/home-desktop.png`.
+
+C# and .NET are supported by `Variables/Program.cs` and its .NET 10 project file. TanStack Query, Vitest, Playwright and React Testing Library are declared in Connect+'s package manifest; that repository also includes a query provider and test configuration files. Rakentaa's private hosted preview is not advertised as a public live site. `Webapp` contains only Git configuration and is omitted from the showcase.
+
+The showcase omits repositories absent from the public listing, empty repositories and documentation-only bootstraps. Existing personal experience and education are maintained separately. Updates are curated in source, rather than fetched from GitHub during page loads. Check repository source files before changing descriptions or technology tags, and add live links only when available.
 
 ## Getting Started
 

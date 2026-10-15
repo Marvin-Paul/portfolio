@@ -8,7 +8,7 @@ import { Reveal } from "@/components/reveal";
 import { SkillChip, getSkill } from "@/components/skill-chip";
 import type { Project } from "@/lib/projects";
 
-const filters = ["All", "Featured", "Web", "Mobile & AI"] as const;
+const filters = ["All", "Featured", "Web", "CMS", "Learning"] as const;
 type Filter = (typeof filters)[number];
 
 function matches(project: Project, filter: Filter) {
@@ -18,12 +18,11 @@ function matches(project: Project, filter: Filter) {
     case "Featured":
       return project.featured === true;
     case "Web":
-      return !project.tags.some((t) => t === "Flutter" || t === "Dart");
-    case "Mobile & AI":
-      return (
-        project.tags.some((t) => t === "Flutter" || t === "Dart") ||
-        project.category.includes("AI")
-      );
+      return !project.tags.some((t) => t === "Flutter" || t === "Dart" || t === ".NET");
+    case "CMS":
+      return project.category.includes("CMS");
+    case "Learning":
+      return project.category === "Education";
   }
 }
 
@@ -97,16 +96,20 @@ function FeaturedCard({
           })}
         </div>
       </div>
-      <div>
-        <Link
-          href={project.links[0].href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-on-primary transition hover:bg-accent-dark"
-        >
-          View on GitHub
-          <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-        </Link>
+      <div className="flex flex-wrap gap-3">
+        {project.links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.title}: ${link.label}`}
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-on-primary transition hover:bg-accent-dark"
+          >
+            {link.label === "GitHub" ? "View on GitHub" : link.label}
+            <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
+        ))}
       </div>
     </div>
   );
@@ -129,17 +132,21 @@ function FeaturedCard({
 function CompactCard({ project, delay = 0 }: { project: Project; delay?: number }) {
   return (
     <Reveal variant="zoom" delay={delay} className="h-full">
-      <a
-        href={project.links[0].href}
-        target="_blank"
-        rel="noopener noreferrer"
+      <article
         className="glass-card group flex h-full flex-col overflow-hidden rounded-xl transition hover:border-white/20"
       >
         <ProjectVisual project={project} className="aspect-video" />
         <div className="flex flex-1 flex-col p-5">
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-display text-lg uppercase tracking-tight text-white">
-              {project.title}
+              <a
+                href={project.links[0].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline underline-offset-4"
+              >
+                {project.title}
+              </a>
             </h3>
             <span className="mono-label shrink-0 pt-1 text-neutral-500">
               {project.year}
@@ -164,12 +171,23 @@ function CompactCard({ project, delay = 0 }: { project: Project; delay?: number 
               );
             })}
           </div>
-          <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-400 transition group-hover:text-white">
-            VIEW ON GITHUB
-            <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-          </span>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+            {project.links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.title}: ${link.label}`}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-400 transition hover:text-white"
+              >
+                {link.label === "GitHub" ? "VIEW ON GITHUB" : "VISIT LIVE SITE"}
+                <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
         </div>
-      </a>
+      </article>
     </Reveal>
   );
 }

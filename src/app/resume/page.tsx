@@ -15,26 +15,7 @@ export const metadata: Metadata = {
 const summary =
   "Software developer based in Entebbe, Uganda, focused on full-stack web, mobile and AI products. I take work from specification and design to a shipping build — documenting before building, and testing along the way. Experienced in startup product work, an internship as a full-stack developer, and professional application and website testing.";
 
-const skills = [
-  "TypeScript",
-  "JavaScript",
-  "Next.js",
-  "React",
-  "Tailwind CSS",
-  "Flutter",
-  "Dart",
-  "Supabase",
-  "Prisma",
-  "PostgreSQL",
-  "Python",
-  "Gemini AI",
-  "Figma",
-  "Adobe Illustrator",
-  "WordPress",
-  "Bolt",
-  "Git",
-  "Vercel",
-];
+const skills = site.skills;
 
 const experience = [
   {
@@ -59,7 +40,7 @@ const experience = [
     role: "AI Applications Developer",
     org: "MaizeGuard",
     period: "2026",
-    body: "Built an on-device AI diagnostic for maize leaf disease using Flutter and Gemini vision.",
+    body: "Built a mobile AI diagnostic for maize leaf disease using Flutter and Gemini vision.",
   },
 ];
 

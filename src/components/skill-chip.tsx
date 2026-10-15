@@ -2,8 +2,17 @@ import type { IconType } from "react-icons";
 import {
   SiTypescript,
   SiJavascript,
+  SiDotnet,
+  SiReactquery,
+  SiVitest,
+  SiTestinglibrary,
+  SiPhp,
+  SiGnubash,
+  SiDocker,
   SiNextdotjs,
   SiReact,
+  SiNodedotjs,
+  SiVite,
   SiFlutter,
   SiDart,
   SiSupabase,
@@ -24,9 +33,10 @@ import {
   SiVercel,
 } from "react-icons/si";
 import { DiIllustrator } from "react-icons/di";
+import { TbBrandCSharp } from "react-icons/tb";
 import { VscVscode, VscTerminal } from "react-icons/vsc";
 import { RiOpenaiFill } from "react-icons/ri";
-import { FiZap } from "react-icons/fi";
+import { FiZap, FiCheckSquare } from "react-icons/fi";
 
 export type SkillInfo = {
   name: string;
@@ -37,9 +47,24 @@ export type SkillInfo = {
 const skills: SkillInfo[] = [
   { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "C#", icon: TbBrandCSharp, color: "#A179DC" },
+  { name: ".NET", icon: SiDotnet, color: "#B794F6" },
+  { name: "TanStack Query", icon: SiReactquery, color: "#FF4154" },
+  { name: "Vitest", icon: SiVitest, color: "#6E9F18" },
+  { name: "Playwright", icon: FiCheckSquare, color: "#45BA4B" },
+  { name: "React Testing Library", icon: SiTestinglibrary, color: "#E33332" },
+  { name: "PHP", icon: SiPhp, color: "#A5ACE9" },
+  { name: "SQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "PL/pgSQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "Bash", icon: SiGnubash, color: "#4EAA25" },
+  { name: "PowerShell", icon: VscTerminal, color: "#5391FE" },
+  { name: "Windows Batch", icon: VscTerminal, color: "#A0AEC0" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
   { name: "Python", icon: SiPython, color: "#3776AB" },
   { name: "Dart", icon: SiDart, color: "#0175C2" },
   { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
+  { name: "Vite", icon: SiVite, color: "#646CFF" },
   { name: "Next.js", icon: SiNextdotjs, color: "#E5E5E5" },
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
   { name: "HTML", icon: SiHtml5, color: "#E34F26" },
@@ -71,15 +96,27 @@ export function getSkill(name: string): SkillInfo | undefined {
 }
 
 export const skillGroups: { label: string; skills: SkillInfo[] }[] = [
-  { label: "Languages", skills: ["TypeScript", "JavaScript", "Python", "Dart"].map(byName) },
+  {
+    label: "Languages",
+    skills: ["TypeScript", "JavaScript", "C#", "PHP", "Python", "Dart", "HTML", "CSS", "SQL", "PL/pgSQL"].map(byName),
+  },
+  {
+    label: "Scripting & Automation",
+    skills: ["Bash", "PowerShell", "Windows Batch"].map(byName),
+  },
   {
     label: "Frontend",
-    skills: ["React", "Next.js", "Tailwind CSS", "HTML", "CSS"].map(byName),
+    skills: ["React", "Next.js", "Vite", "Tailwind CSS", "TanStack Query"].map(byName),
   },
   { label: "Mobile", skills: ["Flutter"].map(byName) },
+  { label: ".NET Development", skills: [".NET"].map(byName) },
+  {
+    label: "Testing",
+    skills: ["Vitest", "Playwright", "React Testing Library"].map(byName),
+  },
   {
     label: "Backend & Data",
-    skills: ["Supabase", "Prisma", "PostgreSQL"].map(byName),
+    skills: ["Node.js", "Supabase", "Prisma", "PostgreSQL"].map(byName),
   },
   {
     label: "Code Editors",
@@ -92,7 +129,7 @@ export const skillGroups: { label: string; skills: SkillInfo[] }[] = [
   { label: "Design", skills: ["Figma", "Adobe Illustrator"].map(byName) },
   {
     label: "CMS & Build Tools",
-    skills: ["WordPress", "Bolt", "Vercel", "Git"].map(byName),
+    skills: ["WordPress", "Docker", "Bolt", "Vercel", "Git"].map(byName),
   },
 ];
 
