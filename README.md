@@ -7,6 +7,9 @@ A Next.js portfolio with projects, skills, experience, contact details and a pri
 - `src/lib/projects.ts` contains the curated project showcase and capabilities.
 - `src/lib/site.ts` contains profile details, navigation and the skills shared with the resume.
 - `src/components/skill-chip.tsx` contains skill icons and homepage skill groups.
+- `src/lib/projects.ts` also holds `hfSpaces`, the map from GitHub repository to
+  Hugging Face Space name, and the `hf` / `hfPublic` fields used to badge and
+  link each project card.
 
 Repository-backed skills include PHP from Rolkat's WordPress theme; SQL and PL/pgSQL from HYSYS and Wabz Foods database scripts; Bash and Windows Batch from Campus Mindspace's deployment scripts; PowerShell and Docker from Wabz Foods' workflow and container files; and Rust, Tauri and SQLite from the POS and invoicing apps. Keep new skills in both the shared `site.skills` list and the appropriate homepage skill group.
 
@@ -15,6 +18,38 @@ Project content was reviewed against public and private repositories at [Marvin-
 C# and .NET are supported by `Variables/Program.cs`, its .NET 10 project file, and JBK Invoicing's .NET MAUI project (SQLite, CommunityToolkit.Mvvm, MailKit, PDF and SMTP services). Tauri v2, Rust, React 19, Zustand, TanStack Query, Vitest and Supabase are declared in the POS manifests. TanStack Query, Vitest, Playwright and React Testing Library are declared in Connect+'s package manifest. House of Gina's stack (React 19, Vite, Tailwind CSS v4, Zustand, React Router, Motion) is declared in its `package.json`. Rakentaa's private hosted preview is not advertised as a public live site. `Webapp` contains only Git configuration and is omitted from the showcase.
 
 Private projects (`private: true`) are described from their source files and marked with a Private badge. They never link to the repository because visitors cannot open it; JBK Invoicing links to the contact page for a walkthrough, MaizeGuard links nowhere, and Emotions Store POS and House of Gina link to their public demos. The showcase omits empty repositories, duplicates and documentation-only bootstraps. Existing personal experience and education are maintained separately. Updates are curated in source, rather than fetched from GitHub during page loads. Check repository source files before changing descriptions or technology tags, and add live links only when available.
+
+## Hugging Face mirror
+
+Every GitHub repository is mirrored as a Hugging Face Space under
+[Marvin256](https://huggingface.co/Marvin256). Public GitHub repos map to public
+Spaces; private repos map to private Spaces, which return a 404 to visitors and
+are therefore rendered as a non-clickable "HF Private" badge instead of a link.
+
+Scripts in `scripts/` manage the mirror:
+
+- `mirror_to_hf.py` — clones each repo and uploads it as a Space.
+- `mirror_retry.py` — retries repos whose `git clone` fails on Windows, using
+  the GitHub tarball API instead.
+- `clean_hf_space.py` — removes build artefacts and committed `.env` files from
+  an existing Space, then re-uploads a cleaned checkout.
+- `scan_hf_secrets.py` — scans every public Space for committed secret files and
+  credential-shaped assignments.
+- `scan_github_secrets.py` — scans all GitHub repositories for committed `.env`
+  files containing credentials.
+- `delete_hf_files.py` / `remove_github_env.py` — remove specific secret files
+  from a Space or a GitHub repository.
+
+Each script needs a Hugging Face write token:
+
+```bash
+pip install huggingface_hub
+python scripts/mirror_to_hf.py --token hf_xxxxxxxxxxxx
+```
+
+Tokens are read from the command line and never stored in the repository. Before
+running a mirror, scan for secrets so committed `.env` files are removed rather
+than republished.
 
 ## Getting Started
 
