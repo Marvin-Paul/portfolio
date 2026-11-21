@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiGlobe, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { FiGlobe, FiArrowRight, FiArrowUpRight, FiLock } from "react-icons/fi";
+import { SiHuggingface } from "react-icons/si";
 import { Reveal } from "@/components/reveal";
-import { SkillChip, skillGroups } from "@/components/skill-chip";
+import { SmartLink } from "@/components/smart-link";
+import { SkillChip, coreSkills } from "@/components/skill-chip";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
 
@@ -43,6 +45,12 @@ const experience: {
   link?: { label: string; href: string };
 }[] = [
   {
+    role: "Data Analysis Intern",
+    org: "Codveda Technologies",
+    period: "2026 — Present",
+    link: { label: "codveda.com", href: "https://www.codveda.com" },
+  },
+  {
     role: "Full-Stack Developer Intern",
     org: "HYSYS Global Solutions",
     period: "2026",
@@ -77,7 +85,7 @@ function monogram(title: string) {
 
 export default function Home() {
   return (
-    <div className="container-site space-y-12 py-6 sm:py-8">
+    <div className="container-site space-y-10 py-6 sm:py-8">
       {/* HERO */}
       <Reveal>
         <header className="glass-card relative overflow-hidden rounded-2xl p-6 sm:p-12">
@@ -92,13 +100,13 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 select-none justify-center overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 select-none justify-center overflow-hidden lg:flex">
             <h1 className="font-display text-[clamp(3rem,11vw,13rem)] font-bold leading-none tracking-tight text-primary/60">
               PORTFOLIO
             </h1>
           </div>
 
-          <div className="relative grid min-h-[500px] grid-cols-1 items-end gap-8 md:grid-cols-2 lg:grid-cols-12">
+          <div className="relative grid min-h-[440px] grid-cols-1 items-end gap-8 md:grid-cols-2 lg:min-h-[480px] lg:grid-cols-12">
             <div className="space-y-4 md:col-span-1 lg:col-span-4">
               <p className="font-handwriting text-3xl text-neutral-300">
                 Hello, I&rsquo;m
@@ -123,7 +131,7 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center md:col-span-1 lg:col-span-5">
-              <div className="relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900">
+              <div className="relative aspect-[3/4] w-full max-w-xs overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 sm:max-w-sm lg:max-w-md">
                 <Image
                   src="/images/portrait-with-tie.png"
                   alt={`${site.fullName}, ${site.title}`}
@@ -150,7 +158,7 @@ export default function Home() {
                   <span className="text-xs uppercase tracking-wider text-neutral-400">
                     Projects
                     <br />
-                    On GitHub
+                    Built
                   </span>
                 </div>
                 <div className="flex items-baseline gap-4">
@@ -197,14 +205,10 @@ export default function Home() {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {selected.map((project, i) => (
-            <Reveal key={project.slug} delay={i * 140} className="h-full">
-              <a
-                href={project.links[0].href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block h-full cursor-pointer space-y-3"
-              >
+          {selected.map((project, i) => {
+            const primary = project.links[0];
+            const card = (
+              <>
                 <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900 via-black to-[#1a0404]">
                   {project.image ? (
                     <Image
@@ -212,7 +216,7 @@ export default function Home() {
                       alt={project.title}
                       fill
                       unoptimized
-                      className="object-cover object-top transition duration-500 ease-out group-hover:scale-105"
+                      className="object-cover object-top transition duration-500 ease-out group-hover:scale-105 group-active:scale-105"
                     />
                   ) : (
                     <span className="font-display text-6xl font-bold uppercase text-white/10 transition duration-500 group-hover:scale-110 group-hover:text-primary/30">
@@ -222,6 +226,18 @@ export default function Home() {
                   <span className="absolute left-3 top-3 rounded bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
                     {project.year}
                   </span>
+                  {project.private && (
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
+                      <FiLock className="h-3 w-3" aria-hidden="true" />
+                      Private
+                    </span>
+                  )}
+                  {project.hf && (
+                    <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-[#FFD21E]">
+                      <SiHuggingface className="h-3 w-3" aria-hidden="true" />
+                      {project.hfPublic === false ? "HF Private" : "HF Space"}
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
@@ -241,110 +257,205 @@ export default function Home() {
                     <FiArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </span>
                 </div>
-              </a>
-            </Reveal>
-          ))}
+              </>
+            );
+
+            return (
+              <Reveal key={project.slug} delay={i * 140} className="h-full">
+                {primary ? (
+                  <SmartLink
+                    href={primary.href}
+                    className="group block h-full cursor-pointer space-y-3 transition-transform duration-300 active:scale-[0.985]"
+                  >
+                    {card}
+                  </SmartLink>
+                ) : (
+                  <div className="group block h-full space-y-3">{card}</div>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
-      {/* EXPERIENCE · PROCESS · QUOTE */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12">
-        <Reveal variant="slide-left" className="md:col-span-1 lg:col-span-5">
-          <div className="glass-card space-y-8 rounded-2xl p-6">
-            <h3 className="border-b border-neutral-800 pb-3 font-display text-xl uppercase tracking-wider text-white">
-              Experience & Skills
-            </h3>
-
-            <div className="space-y-4">
-              <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                EXPERIENCE
+      {/* HUGGING FACE */}
+      <Reveal variant="fade-up">
+        <section className="glass-card relative overflow-hidden rounded-2xl p-6 sm:p-8">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#FFD21E]/10 blur-3xl" />
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="mono-label text-[#FFD21E]">Hugging Face</p>
+              <h3 className="mt-2 font-display text-xl uppercase tracking-wider text-white">
+                Every repository, mirrored as a Space
+              </h3>
+              <p className="mt-3 text-xs leading-relaxed text-neutral-400">
+                All {projects.filter((p) => p.hf && p.hfPublic !== false).length}{" "}
+                public projects are also published as Hugging Face Spaces, so the
+                source can be browsed, cloned and reused straight from the Hub.
               </p>
-              {experience.map((item) => (
-                <div
-                  key={item.role}
-                  className="flex items-start justify-between border-b border-neutral-900 pb-3 text-xs last:border-none last:pb-0"
-                >
-                  <div>
-                    <p className="font-semibold text-white">{item.role}</p>
-                    <p className="text-neutral-500">{item.org}</p>
-                    {item.link && (
-                      <a
-                        href={item.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline"
-                      >
-                        {item.link.label}
-                      </a>
-                    )}
-                  </div>
-                  <span className="font-medium text-primary">{item.period}</span>
-                </div>
-              ))}
             </div>
+            <div className="flex shrink-0 flex-wrap gap-3">
+              <a
+                href={site.huggingface}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-[#FFD21E] px-5 py-2.5 text-xs font-semibold text-black transition hover:bg-[#ffe066] active:scale-95"
+              >
+                <SiHuggingface className="h-4 w-4" aria-hidden="true" />
+                @{site.huggingfaceHandle}
+              </a>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 rounded-full border border-neutral-700 px-5 py-2.5 text-xs font-semibold text-white transition hover:border-[#FFD21E]/60 hover:text-[#FFD21E] active:scale-95"
+              >
+                Browse projects
+                <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </Reveal>
 
-            <div className="space-y-5">
-              <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                SKILLS
-              </p>
-              {skillGroups.map((group) => (
-                <div key={group.label} className="space-y-2.5">
-                  <p className="mono-label text-[10px] text-neutral-500">
-                    {group.label}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <SkillChip key={skill.name} skill={skill} />
-                    ))}
-                  </div>
+      {/* EXPERIENCE + CORE STACK */}
+      <Reveal variant="slide-left">
+        <section className="glass-card grid gap-8 rounded-2xl p-6 sm:p-8 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <h3 className="border-b border-neutral-800 pb-3 font-display text-xl uppercase tracking-wider text-white">
+              Experience
+            </h3>
+            <div className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              {experience.map((item) => (
+                <div key={item.role} className="text-xs">
+                  <p className="font-semibold text-white">{item.role}</p>
+                  <p className="mt-0.5 text-neutral-500">{item.org}</p>
+                  {item.link && (
+                    <a
+                      href={item.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-0.5 inline-block text-primary hover:underline"
+                    >
+                      {item.link.label}
+                    </a>
+                  )}
+                  <p className="mt-1 font-medium text-primary">{item.period}</p>
                 </div>
               ))}
             </div>
           </div>
-        </Reveal>
 
-        <Reveal variant="slide-right" delay={100} className="md:col-span-1 lg:col-span-4">
-          <div className="glass-card space-y-6 rounded-2xl p-6">
-            <h3 className="border-b border-neutral-800 pb-3 font-display text-xl uppercase tracking-wider text-white">
+          <div className="lg:col-span-5 lg:border-l lg:border-neutral-800 lg:pl-8">
+            <div className="flex items-baseline justify-between gap-4 border-b border-neutral-800 pb-3">
+              <h3 className="font-display text-xl uppercase tracking-wider text-white">
+                Core stack
+              </h3>
+              <Link
+                href="/resume"
+                className="flex shrink-0 items-center gap-1 text-xs text-neutral-400 hover:text-white"
+              >
+                Full stack
+                <FiArrowRight className="h-3 w-3" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {coreSkills.map((skill) => (
+                <SkillChip key={skill.name} skill={skill} />
+              ))}
+            </div>
+            <p className="mt-5 text-xs leading-relaxed text-neutral-500">
+              From the app shell to the database — typed, tested and shipped
+              with the same care.
+            </p>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* WORK PROCESS */}
+      <Reveal variant="slide-right">
+        <section className="glass-card rounded-2xl p-6 sm:p-8">
+          <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-neutral-800 pb-3">
+            <h3 className="font-display text-xl uppercase tracking-wider text-white">
               Work Process
             </h3>
-            <div className="space-y-6 text-xs">
-              {process.map((item) => (
-                <div key={item.step} className="flex gap-4">
-                  <span className="font-display text-lg font-bold text-primary">
-                    {item.step}
-                  </span>
-                  <div>
-                    <p className="font-bold uppercase text-primary">
-                      {item.title}
-                    </p>
-                    <p className="text-neutral-400">{item.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <span className="text-[10px] uppercase tracking-widest text-neutral-500">
+              Five steps, no surprises
+            </span>
           </div>
-        </Reveal>
+          <ol className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+            {process.map((item) => (
+              <li
+                key={item.step}
+                className="border-t border-neutral-800 pt-4"
+              >
+                <span className="font-display text-lg font-bold text-primary">
+                  {item.step}
+                </span>
+                <p className="mt-1 text-xs font-bold uppercase tracking-wider text-white">
+                  {item.title}
+                </p>
+                <p className="mt-1.5 text-xs leading-relaxed text-neutral-400">
+                  {item.body}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </Reveal>
 
-        <Reveal variant="zoom" delay={200} className="md:col-span-2 lg:col-span-3">
-          <div className="glass-card flex h-full flex-col justify-between space-y-8 rounded-2xl border-red-900/50 p-6">
-            <div className="font-serif text-5xl text-red-500">“</div>
-            <blockquote className="text-sm font-medium leading-relaxed text-neutral-200">
-              Good design is not just how it looks, but how it works.
-            </blockquote>
-            <div>
-              <p className="font-handwriting text-3xl text-neutral-200">
+      {/* QUOTE */}
+      <Reveal variant="zoom">
+        <section className="glass-card relative overflow-hidden rounded-2xl p-8 sm:p-12">
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-28 -left-20 h-64 w-64 rounded-full bg-red-900/25 blur-3xl" />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-4 top-0 hidden select-none font-serif text-[10rem] leading-none text-primary/10 sm:right-10 sm:block"
+          >
+            &rdquo;
+          </span>
+
+          <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-8">
+              <p className="mono-label text-primary">A principle I build by</p>
+              <blockquote className="mt-4 font-display text-2xl font-semibold uppercase leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl">
+                &ldquo;Good design is not just how it looks, but{" "}
+                <span className="text-primary">how it works</span>.&rdquo;
+              </blockquote>
+            </div>
+
+            <div className="lg:col-span-4 lg:border-l lg:border-neutral-800 lg:pl-8">
+              <p className="font-handwriting text-4xl text-neutral-200">
                 Muwereza
               </p>
-              <div className="mt-8 border-t border-red-900/40 pt-4 text-[10px] tracking-wider text-neutral-300">
-                <p className="font-bold text-white">LET&rsquo;S CREATE</p>
-                <p className="text-neutral-400">SOMETHING GREAT TOGETHER.</p>
-                <span className="mt-2 block text-primary">✦</span>
+              <p className="mt-1 text-[10px] uppercase tracking-widest text-neutral-500">
+                Designer &amp; developer
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-on-primary transition hover:bg-accent-dark active:scale-95"
+                >
+                  Start a project
+                  <FiArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-xs text-neutral-400 transition-colors hover:text-white active:text-white"
+                >
+                  More about me
+                </Link>
               </div>
             </div>
           </div>
-        </Reveal>
-      </div>
+
+          <div className="relative mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-neutral-800 pt-4 text-[10px] uppercase tracking-widest text-neutral-500">
+            <span className="text-primary">✦</span>
+            <span>Available for freelance</span>
+            <span className="text-neutral-700">/</span>
+            <span>{site.location}</span>
+          </div>
+        </section>
+      </Reveal>
     </div>
   );
 }

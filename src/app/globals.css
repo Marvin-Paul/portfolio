@@ -65,6 +65,12 @@
   --radius-pill: 32px;
 }
 
+html,
+body {
+  /* Reveal animations translate sections sideways before they enter view. */
+  overflow-x: clip;
+}
+
 body {
   background: var(--canvas);
   color: var(--ink);

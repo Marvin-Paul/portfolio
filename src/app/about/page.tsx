@@ -19,6 +19,13 @@ const experience: {
   link?: { label: string; href: string };
 }[] = [
   {
+    role: "Data Analysis Intern",
+    org: "Codveda Technologies",
+    period: "2026 — Present",
+    body: "Interning as a data analyst, exploring datasets for patterns and trends that inform strategy and decision-making.",
+    link: { label: "codveda.com", href: "https://www.codveda.com" },
+  },
+  {
     role: "Full-Stack Developer Intern",
     org: "HYSYS Global Solutions",
     period: "2026",
@@ -150,6 +157,16 @@ export default function AboutPage() {
                     className="text-action-blue underline underline-offset-4 hover:text-focus-blue"
                   >
                     GitHub · {site.githubHandle}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={site.huggingface}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-action-blue underline underline-offset-4 hover:text-focus-blue"
+                  >
+                    Hugging Face · {site.huggingfaceHandle}
                   </a>
                 </li>
                 <li>

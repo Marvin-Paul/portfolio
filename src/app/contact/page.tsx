@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FiMail, FiGithub, FiMapPin, FiArrowUpRight, FiLinkedin, FiFileText } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import { FaWhatsapp } from "react-icons/fa";
+import { SiHuggingface } from "react-icons/si";
 import { Reveal } from "@/components/reveal";
 import { SectionLabel } from "@/components/section-label";
 import { ContactForm } from "@/components/contact-form";
@@ -45,6 +46,14 @@ const channels: {
     icon: FiGithub,
     iconClass: "text-neutral-200",
     rowClass: "hover:border-neutral-500/40 hover:bg-neutral-100/5",
+  },
+  {
+    label: "Hugging Face",
+    value: `@${site.huggingfaceHandle}`,
+    href: site.huggingface,
+    icon: SiHuggingface,
+    iconClass: "text-[#FFD21E]",
+    rowClass: "hover:border-[#FFD21E]/40 hover:bg-[#FFD21E]/5",
   },
   {
     label: "LinkedIn",
@@ -127,7 +136,7 @@ export default function ContactPage() {
                   const row = (
                     <>
                       <span
-                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900 transition group-hover:scale-105 ${channel.iconClass}`}
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900 transition group-hover:scale-105 group-active:scale-105 ${channel.iconClass}`}
                       >
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
@@ -145,7 +154,7 @@ export default function ContactPage() {
                       />
                     </>
                   );
-                  const cls = `group flex items-center gap-4 rounded-xl border border-neutral-800 bg-surface p-4 transition ${channel.rowClass}`;
+                  const cls = `group flex items-center gap-4 rounded-xl border border-neutral-800 bg-surface p-4 transition active:scale-[0.99] ${channel.rowClass}`;
                   return channel.external === false ? (
                     <Link key={channel.label} href={channel.href} className={cls}>
                       {row}
@@ -201,7 +210,7 @@ export default function ContactPage() {
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
                   href={`mailto:${site.email}`}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-on-primary transition hover:bg-accent-dark sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-on-primary transition hover:bg-accent-dark active:scale-95 sm:w-auto"
                 >
                   Email me
                   <FiArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -210,7 +219,7 @@ export default function ContactPage() {
                   href={site.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-neutral-700 px-8 py-3.5 text-sm font-semibold text-white transition hover:border-[#25D366]/60 hover:text-[#25D366] sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-neutral-700 px-8 py-3.5 text-sm font-semibold text-white transition hover:border-[#25D366]/60 hover:text-[#25D366] active:scale-95 sm:w-auto"
                 >
                   <FaWhatsapp
                     className="h-4 w-4 text-[#25D366]"

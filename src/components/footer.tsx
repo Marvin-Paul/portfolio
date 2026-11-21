@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FiMail, FiGithub, FiMapPin, FiArrowRight, FiLinkedin, FiFileText } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { SiHuggingface } from "react-icons/si";
 import { site } from "@/lib/site";
 
 export function Footer() {
@@ -20,7 +21,7 @@ export function Footer() {
           <div className="pt-2">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 text-xs text-primary transition hover:bg-primary hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-primary px-4 py-2 text-xs text-primary transition hover:bg-primary hover:text-white active:scale-95"
             >
               <FiArrowRight className="h-3.5 w-3.5" aria-hidden="true" /> AVAILABLE
               FOR FREELANCE
@@ -31,7 +32,7 @@ export function Footer() {
         <div className="space-y-3 text-xs">
           <a
             href={`mailto:${site.email}`}
-            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50 active:border-primary/60"
           >
             <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
               <FiMail className="h-3.5 w-3.5" aria-hidden="true" />
@@ -42,16 +43,29 @@ export function Footer() {
             href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50 active:border-primary/60"
           >
             <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
               <FiGithub className="h-3.5 w-3.5" aria-hidden="true" />
             </span>
             <span className="text-neutral-200">github.com/{site.githubHandle}</span>
           </a>
+          <a
+            href={site.huggingface}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50 active:border-primary/60"
+          >
+            <span className="rounded-lg bg-neutral-900 p-2 text-[#FFD21E]">
+              <SiHuggingface className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            <span className="text-neutral-200">
+              huggingface.co/{site.huggingfaceHandle}
+            </span>
+          </a>
           <Link
             href="/resume"
-            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50 active:border-primary/60"
           >
             <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
               <FiFileText className="h-3.5 w-3.5" aria-hidden="true" />
@@ -62,7 +76,7 @@ export function Footer() {
             href={site.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50 active:border-primary/60"
           >
             <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
               <FiLinkedin className="h-3.5 w-3.5" aria-hidden="true" />
@@ -73,7 +87,7 @@ export function Footer() {
             href={site.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50"
+            className="flex items-center gap-3 rounded-xl border border-neutral-900 bg-neutral-950 p-3.5 transition hover:border-primary/50 active:border-primary/60"
           >
             <span className="rounded-lg bg-neutral-900 p-2 text-neutral-400">
               <FaWhatsapp className="h-3.5 w-3.5" aria-hidden="true" />

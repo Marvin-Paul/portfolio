@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiLock } from "react-icons/fi";
+import { SiHuggingface } from "react-icons/si";
 import { Reveal } from "@/components/reveal";
+import { SmartLink } from "@/components/smart-link";
 import { SkillChip, getSkill } from "@/components/skill-chip";
 import type { Project } from "@/lib/projects";
 
-const filters = ["All", "Featured", "Web", "CMS", "Learning"] as const;
+const filters = ["All", "Featured", "Web", "Desktop", "CMS", "Learning", "Private"] as const;
 type Filter = (typeof filters)[number];
 
 function matches(project: Project, filter: Filter) {
@@ -19,10 +20,14 @@ function matches(project: Project, filter: Filter) {
       return project.featured === true;
     case "Web":
       return !project.tags.some((t) => t === "Flutter" || t === "Dart" || t === ".NET");
+    case "Desktop":
+      return project.tags.includes("Tauri");
     case "CMS":
       return project.category.includes("CMS");
     case "Learning":
       return project.category === "Education";
+    case "Private":
+      return project.private === true;
   }
 }
 
@@ -45,7 +50,7 @@ function ProjectVisual({ project, className }: { project: Project; className?: s
           alt={project.title}
           fill
           unoptimized
-          className="object-cover object-top transition duration-500 group-hover:scale-105"
+          className="object-cover object-top transition duration-500 group-hover:scale-105 group-active:scale-105"
         />
       ) : (
         <span className="font-display text-5xl font-bold uppercase text-white/10 transition duration-300 group-hover:scale-110 group-hover:text-primary/30 sm:text-6xl">
@@ -55,6 +60,18 @@ function ProjectVisual({ project, className }: { project: Project; className?: s
       <span className="absolute left-3 top-3 rounded bg-black/60 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
         {project.year}
       </span>
+      {project.private && (
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
+          <FiLock className="h-3 w-3" aria-hidden="true" />
+          Private
+        </span>
+      )}
+      {project.hf && (
+        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-[#FFD21E]">
+          <SiHuggingface className="h-3 w-3" aria-hidden="true" />
+          {project.hfPublic === false ? "HF Private" : "HF Space"}
+        </span>
+      )}
     </div>
   );
 }
@@ -98,18 +115,36 @@ function FeaturedCard({
       </div>
       <div className="flex flex-wrap gap-3">
         {project.links.map((link) => (
-          <Link
+          <SmartLink
             key={link.href}
             href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${project.title}: ${link.label}`}
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-on-primary transition hover:bg-accent-dark"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-on-primary transition hover:bg-accent-dark active:scale-95"
           >
             {link.label === "GitHub" ? "View on GitHub" : link.label}
             <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-          </Link>
+          </SmartLink>
         ))}
+        {project.hf && project.hfPublic !== false && (
+          <SmartLink
+            href={`https://huggingface.co/spaces/Marvin256/${project.hf}`}
+            className="inline-flex items-center gap-2 rounded-full border border-[#FFD21E]/40 px-5 py-2.5 text-xs font-semibold text-[#FFD21E] transition hover:border-[#FFD21E] hover:bg-[#FFD21E]/10 active:scale-95"
+          >
+            <SiHuggingface className="h-3.5 w-3.5" aria-hidden="true" />
+            Hugging Face
+          </SmartLink>
+        )}
+        {project.hf && project.hfPublic === false && (
+          <span className="inline-flex items-center gap-2 rounded-full border border-neutral-800 px-5 py-2.5 text-xs font-semibold text-neutral-500">
+            <SiHuggingface className="h-3.5 w-3.5" aria-hidden="true" />
+            HF Space · private
+          </span>
+        )}
+        {project.links.length === 0 && (
+          <span className="inline-flex items-center gap-2 rounded-full border border-hairline px-5 py-2.5 text-xs font-semibold text-neutral-400">
+            <FiLock className="h-3.5 w-3.5" aria-hidden="true" />
+            Private build · ask for a walkthrough
+          </span>
+        )}
       </div>
     </div>
   );
@@ -133,20 +168,22 @@ function CompactCard({ project, delay = 0 }: { project: Project; delay?: number 
   return (
     <Reveal variant="zoom" delay={delay} className="h-full">
       <article
-        className="glass-card group flex h-full flex-col overflow-hidden rounded-xl transition hover:border-white/20"
+        className="glass-card group flex h-full flex-col overflow-hidden rounded-xl transition hover:border-white/20 active:border-white/25"
       >
         <ProjectVisual project={project} className="aspect-video" />
         <div className="flex flex-1 flex-col p-5">
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-display text-lg uppercase tracking-tight text-white">
-              <a
-                href={project.links[0].href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline underline-offset-4"
-              >
-                {project.title}
-              </a>
+              {project.links[0] ? (
+                <SmartLink
+                  href={project.links[0].href}
+                  className="hover:underline underline-offset-4"
+                >
+                  {project.title}
+                </SmartLink>
+              ) : (
+                project.title
+              )}
             </h3>
             <span className="mono-label shrink-0 pt-1 text-neutral-500">
               {project.year}
@@ -173,18 +210,30 @@ function CompactCard({ project, delay = 0 }: { project: Project; delay?: number 
           </div>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
             {project.links.map((link) => (
-              <a
+              <SmartLink
                 key={link.href}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${project.title}: ${link.label}`}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-400 transition hover:text-white"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-400 transition hover:text-white active:text-white"
               >
                 {link.label === "GitHub" ? "VIEW ON GITHUB" : "VISIT LIVE SITE"}
                 <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </a>
+              </SmartLink>
             ))}
+            {project.hf && project.hfPublic !== false && (
+              <SmartLink
+                href={`https://huggingface.co/spaces/Marvin256/${project.hf}`}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#FFD21E]/80 transition hover:text-[#FFD21E] active:text-[#FFD21E]"
+              >
+                <SiHuggingface className="h-3.5 w-3.5" aria-hidden="true" />
+                HF SPACE
+              </SmartLink>
+            )}
+            {project.links.length === 0 && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500">
+                <FiLock className="h-3.5 w-3.5" aria-hidden="true" />
+                PRIVATE · SOURCE ON REQUEST
+              </span>
+            )}
           </div>
         </div>
       </article>
@@ -211,7 +260,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
                   type="button"
                   aria-pressed={active}
                   onClick={() => setFilter(f)}
-                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                  className={`rounded-full border px-4 py-2 text-sm transition active:scale-95 ${
                     active
                       ? "border-primary text-primary"
                       : "border-hairline text-ink hover:border-primary/50"

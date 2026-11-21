@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { SiHuggingface } from "react-icons/si";
 import { ResumeActions } from "@/components/resume-actions";
 import { SectionLabel } from "@/components/section-label";
+import { SmartLink } from "@/components/smart-link";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
 
@@ -13,11 +15,17 @@ export const metadata: Metadata = {
 };
 
 const summary =
-  "Software developer based in Entebbe, Uganda, focused on full-stack web, mobile and AI products. I take work from specification and design to a shipping build — documenting before building, and testing along the way. Experienced in startup product work, an internship as a full-stack developer, and professional application and website testing.";
+  "Software developer based in Entebbe, Uganda, focused on full-stack web, mobile and AI products. I take work from specification and design to a shipping build — documenting before building, and testing along the way. Experienced in startup product work, full-stack and data analysis internships, and professional application and website testing.";
 
 const skills = site.skills;
 
 const experience = [
+  {
+    role: "Data Analysis Intern",
+    org: "Codveda Technologies",
+    period: "2026 — Present",
+    body: "Analyzing datasets to surface patterns and trends that support data-driven strategy and decision-making.",
+  },
   {
     role: "Full-Stack Developer Intern",
     org: "HYSYS Global Solutions",
@@ -130,6 +138,13 @@ export default function ResumePage() {
               <ContactLine href={site.github} label={`github.com/${site.githubHandle}`} />
             </span>
             <span className="inline-flex items-center gap-1.5">
+              <SiHuggingface className="h-4 w-4 text-[#d32f2f]" aria-hidden="true" />
+              <ContactLine
+                href={site.huggingface}
+                label={`huggingface.co/${site.huggingfaceHandle}`}
+              />
+            </span>
+            <span className="inline-flex items-center gap-1.5">
               <FiLinkedin className="h-4 w-4 text-[#d32f2f]" aria-hidden="true" />
               <ContactLine
                 href={site.linkedin}
@@ -211,16 +226,21 @@ export default function ResumePage() {
               {featured.map((project) => (
                 <div key={project.slug}>
                   <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                    <a
-                      href={project.links[0].href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-semibold text-neutral-900 underline-offset-2 hover:underline"
-                    >
-                      {project.title}
-                    </a>
+                    {project.links[0] ? (
+                      <SmartLink
+                        href={project.links[0].href}
+                        className="text-sm font-semibold text-neutral-900 underline-offset-2 hover:underline"
+                      >
+                        {project.title}
+                      </SmartLink>
+                    ) : (
+                      <span className="text-sm font-semibold text-neutral-900">
+                        {project.title}
+                      </span>
+                    )}
                     <span className="text-xs font-semibold uppercase tracking-wider text-[#d32f2f]">
                       {project.category}
+                      {project.private ? " · Private" : ""}
                     </span>
                   </div>
                   <p className="mt-1 max-w-3xl text-xs leading-relaxed text-neutral-600">

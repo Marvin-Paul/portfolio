@@ -7,6 +7,9 @@ import {
   SiVitest,
   SiTestinglibrary,
   SiPhp,
+  SiRust,
+  SiTauri,
+  SiSqlite,
   SiGnubash,
   SiDocker,
   SiNextdotjs,
@@ -49,6 +52,9 @@ const skills: SkillInfo[] = [
   { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
   { name: "C#", icon: TbBrandCSharp, color: "#A179DC" },
   { name: ".NET", icon: SiDotnet, color: "#B794F6" },
+  { name: "Rust", icon: SiRust, color: "#DEA584" },
+  { name: "Tauri", icon: SiTauri, color: "#24C8DB" },
+  { name: "SQLite", icon: SiSqlite, color: "#4A9CC7" },
   { name: "TanStack Query", icon: SiReactquery, color: "#FF4154" },
   { name: "Vitest", icon: SiVitest, color: "#6E9F18" },
   { name: "Playwright", icon: FiCheckSquare, color: "#45BA4B" },
@@ -91,6 +97,21 @@ const skills: SkillInfo[] = [
 
 const byName = (name: string) => skills.find((s) => s.name === name)!;
 
+export const coreSkills = [
+  "TypeScript",
+  "React",
+  "Next.js",
+  "C#",
+  ".NET",
+  "Rust",
+  "Tauri",
+  "Flutter",
+  "Supabase",
+  "PostgreSQL",
+  "SQLite",
+  "Figma",
+].map(byName);
+
 export function getSkill(name: string): SkillInfo | undefined {
   return skills.find((s) => s.name.toLowerCase() === name.toLowerCase());
 }
@@ -98,7 +119,7 @@ export function getSkill(name: string): SkillInfo | undefined {
 export const skillGroups: { label: string; skills: SkillInfo[] }[] = [
   {
     label: "Languages",
-    skills: ["TypeScript", "JavaScript", "C#", "PHP", "Python", "Dart", "HTML", "CSS", "SQL", "PL/pgSQL"].map(byName),
+    skills: ["TypeScript", "JavaScript", "C#", "Rust", "PHP", "Python", "Dart", "HTML", "CSS", "SQL", "PL/pgSQL"].map(byName),
   },
   {
     label: "Scripting & Automation",
@@ -109,6 +130,7 @@ export const skillGroups: { label: string; skills: SkillInfo[] }[] = [
     skills: ["React", "Next.js", "Vite", "Tailwind CSS", "TanStack Query"].map(byName),
   },
   { label: "Mobile", skills: ["Flutter"].map(byName) },
+  { label: "Desktop", skills: ["Tauri"].map(byName) },
   { label: ".NET Development", skills: [".NET"].map(byName) },
   {
     label: "Testing",
@@ -116,7 +138,7 @@ export const skillGroups: { label: string; skills: SkillInfo[] }[] = [
   },
   {
     label: "Backend & Data",
-    skills: ["Node.js", "Supabase", "Prisma", "PostgreSQL"].map(byName),
+    skills: ["Node.js", "Supabase", "Prisma", "PostgreSQL", "SQLite"].map(byName),
   },
   {
     label: "Code Editors",
